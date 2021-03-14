@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI; 
@@ -9,12 +9,28 @@ public class Playerscript : MonoBehaviour
     private Rigidbody2D rd2d; 
     public float speed;
     public Text score;  
-    private int scoreValue= 0; 
+    private int scoreValue; 
+
+    public Text YouWin;
+
+    private int lives; 
+    public Text Lives; 
+     
+    
+
     // Start is called before the first frame update
     void Start()
     {
         rd2d=GetComponent<Rigidbody2D>(); 
-        score.text = scoreValue.ToString(); 
+       scoreValue= 0; 
+       YouWin.text=score.text; 
+        SetScoreText(); 
+        lives=3; 
+        Lives.text= "Lives:" + lives.ToString(); 
+        
+        
+        
+         
         
     }
 
@@ -30,11 +46,19 @@ public class Playerscript : MonoBehaviour
         if (collision.collider.tag =="Coin")
         {
             scoreValue +=1; 
-            score.text=scoreValue.ToString(); 
+            SetScoreText(); 
             Destroy(collision.collider.gameObject);
+            
         }
+         
+      
+    
 
-    }
+
+        }
+    
+
+    
     private void OnCollisionStay2D(Collision2D collision)
     {
         if(collision.collider.tag=="Ground")
@@ -51,5 +75,30 @@ public class Playerscript : MonoBehaviour
                 Application.Quit();
             } 
         }
+        if (collision.collider.tag=="Enemy")
+       {
+           lives=- 1; 
+           Lives.text=lives.ToString(); 
+       }
+       
     }
+    void SetScoreText() 
+    {
+        
+        score.text= "Score:" + scoreValue.ToString();
+        
+        
+        
+        if (scoreValue >= 4 )
+
+             {
+                YouWin.text="You Win! Game by Aaron Simons" ;
+             }
+      
+    }
+   
+      
+        
 }
+
+   
