@@ -42,6 +42,7 @@
      <Compile Include="Assets\Scripts\Enemymovement3.cs" />
      <Compile Include="Assets\Scripts\Enemymovement4.cs" />
      <Compile Include="Assets\Scripts\Playerscript.cs" />
+     <Compile Include="Assets\Scripts\restartscript.cs" />
     <Reference Include="UnityEngine">
         <HintPath>C:/Program Files/Unity/Hub/Editor/2019.4.18f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
     </Reference>

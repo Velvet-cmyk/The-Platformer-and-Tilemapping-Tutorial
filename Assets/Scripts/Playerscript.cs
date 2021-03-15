@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI; 
 
+
 public class Playerscript : MonoBehaviour 
 {
 
@@ -15,7 +16,8 @@ public class Playerscript : MonoBehaviour
 
     private int lives; 
     public Text Lives; 
-     
+    public Text Lose; 
+    
     
 
     // Start is called before the first frame update
@@ -26,7 +28,8 @@ public class Playerscript : MonoBehaviour
        YouWin.text=score.text; 
         SetScoreText(); 
         lives=3; 
-        Lives.text= "Lives:" + lives.ToString(); 
+        Lives.text= "Lives:" + lives.ToString();
+        Lose.text="";  
         
         
         
@@ -43,6 +46,22 @@ public class Playerscript : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        if (collision.collider.tag=="Enemy")
+        {
+            lives -=1; 
+            Lives.text="Lives" + lives.ToString(); 
+            Destroy(collision.collider.gameObject);  
+            
+        }
+        
+        if (lives<=0)
+        {
+            Destroy(this); 
+            Destroy(gameObject); 
+            Lose.text="You Lose! Press R to restart"; 
+
+        }
+        
         if (collision.collider.tag =="Coin")
         {
             scoreValue +=1; 
@@ -50,7 +69,7 @@ public class Playerscript : MonoBehaviour
             Destroy(collision.collider.gameObject);
             
         }
-         
+        
       
     
 
@@ -75,11 +94,7 @@ public class Playerscript : MonoBehaviour
                 Application.Quit();
             } 
         }
-        if (collision.collider.tag=="Enemy")
-       {
-           lives=- 1; 
-           Lives.text=lives.ToString(); 
-       }
+       
        
     }
     void SetScoreText() 
